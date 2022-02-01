@@ -1,0 +1,44 @@
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: black;
+  padding: 1em;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.digitos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.boton {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  outline-offset: 0.5rem;
+  text-transform: uppercase;
+  /* display */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* space */
+  padding: 1rem;
+  aspect-ratio: 1;
+  /* border */
+  border: none;
+  border-radius: 100%;
+}
