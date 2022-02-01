@@ -8,28 +8,54 @@ const TIEMPO_MS = 1
 const el_boton   = document.querySelector('.boton.iniciar')
 const els_digitos = Array.from(document.querySelectorAll('.digito'))
 
-// Funcionalidad
+// Ayuda
 
-function esperar(ms) {
+function pausa(ms) {
   return new Promise((resolve) => {
     setTimeout(() => resolve(), ms);
   })
 }
 
-async function cuenta_atras(value, callback) {
-  if(value === 0) {
-    return true
-  }
-  
-  value--
-  callback(value)
-  await esperar(TIEMPO_MS)
-  return cuenta_atras(value, callback)
+// Datos
+
+let continuar = false
+let valor = 0
+
+function get_numero() {
+  return els_digitos
+    .map(el => el.innerHTML)
+    .join('')
 }
 
-// Presentacion
+function set_numero(valor) {
+  valor
+    .toString()
+    .padStart(els_digitos.length, '0')
+    .split('')
+    .forEach((digito, index) => {
+      els_digitos[index].innerHTML = digito
+    })
+}
 
-async function digito_incrementar(event) {
+async function iniciar() {
+  valor = get_numero()
+
+  el_boton.innerHTML = 'Pausar'
+
+  while (continuar === true && valor > 0) {
+    valor--
+    set_numero(valor)      
+    await pausa(TIEMPO_MS)
+  }
+  
+  el_boton.innerHTML = 'Iniciar'
+  
+  continuar = false
+}
+
+// Handlers
+
+async function on_click_digito(event) {
   const el_digito = event.target
   const valor = parseInt(el_digito.innerHTML)
   if(valor < 9) {
@@ -37,24 +63,20 @@ async function digito_incrementar(event) {
   }
 }
 
-async function iniciar() {
-  const numero = els_digitos.map(el_digito => el_digito.innerHTML).join('')
-  
-  await cuenta_atras(numero, (value) => {
-    const digitos = value.toString().padStart(els_digitos.length, '0').split('')
-
-    digitos.forEach((digito, index) => {
-      els_digitos[index].innerHTML = digito
-    })
-  })
-
-  alert('terminé')
+async function on_click_boton() {
+  if(continuar === false) {
+    continuar = true
+    iniciar()
+  } else {
+    continuar = false
+  }
 }
+
 
 // Eventos
 
-el_boton.addEventListener('click', iniciar)
+el_boton.addEventListener('click', on_click_boton)
 
 for (const el_digito of els_digitos) {
-  el_digito.addEventListener('click', digito_incrementar)
+  el_digito.addEventListener('click', on_click_digito)
 }

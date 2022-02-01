@@ -1,5 +1,6 @@
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -9,36 +10,53 @@ html, body {
 }
 
 body {
-  background-color: black;
-  padding: 1em;
+  font-family: monospace;
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: .2rem;
+
   display: flex;
-  gap: 2rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
+
+  padding: 1em;
+
+  background-color: black;
+}
+
+button {
+  font: inherit;
+}
+
+.boton {
+  padding: 1rem;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+.boton:hover {
+  background-color: black;
+  color: white;
 }
 
 .digitos {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  gap: 1px;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
-.boton {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 20px;
-  cursor: pointer;
-  outline-offset: 0.5rem;
-  text-transform: uppercase;
-  /* display */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* space */
-  padding: 1rem;
+
+.iniciar {
   aspect-ratio: 1;
-  /* border */
-  border: none;
   border-radius: 100%;
+  width: 12ch;
+}
+
+.iniciar:hover {
+  border: 2px solid white;
 }
